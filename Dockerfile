@@ -1,11 +1,10 @@
 # Use official n8n image
 FROM n8nio/n8n:latest
 
-# Render will set PORT, n8n will listen on it
-ENV N8N_PORT=${PORT}
+# Set working directory
+WORKDIR /home/node
 
-# Use a writable folder for user data (ephemeral on Render, acceptable for testing)
-ENV N8N_USER_FOLDER=/home/node/.n8n
+# Render will inject PORT as environment variable at runtime
+# The CMD below will start n8n and bind to the PORT specified
 
-# Expose the runtime port for Render
-EXPOSE ${PORT}
+CMD ["n8n", "start"]
